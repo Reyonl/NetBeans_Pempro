@@ -17,6 +17,7 @@ public class FormUtama extends javax.swing.JFrame {
 
     public static FormKaryawan formKaryawan;
     public static FormPekerjaan formPekerjaan;
+    public static FormGaji formGaji;
     /**
      * Creates new form FormUtama
      */
@@ -155,6 +156,11 @@ public class FormUtama extends javax.swing.JFrame {
         transaksiMenu.setText("Transaksi");
 
         gajiMenuItem.setText("Gaji");
+        gajiMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gajiMenuItemActionPerformed(evt);
+            }
+        });
         transaksiMenu.add(gajiMenuItem);
 
         jMenuBar1.add(transaksiMenu);
@@ -262,6 +268,25 @@ public class FormUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
       
     }//GEN-LAST:event_masterDataMenuActionPerformed
+
+    private void gajiMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gajiMenuItemActionPerformed
+        // TODO add your handling code here:
+         if ((formGaji !=null)&& formGaji.isVisible()){
+          try{
+              formGaji.setSelected(true);
+          }catch(PropertyVetoException ex){}
+      }else{
+          formGaji = new FormGaji();
+          mdiDesktopPane.add(formGaji);
+          formGaji.setVisible(true);
+          
+          Dimension desktopSize = mdiDesktopPane.getSize();
+            Dimension jInternalFrameSize = formGaji.getSize();
+            int x = (desktopSize.width - jInternalFrameSize.width) / 2;
+            int y = (desktopSize.height - jInternalFrameSize.height) / 2;
+            formGaji.setLocation(x, y);
+      }
+    }//GEN-LAST:event_gajiMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

@@ -16,7 +16,6 @@ public class FormPekerjaan extends javax.swing.JInternalFrame {
     public FormPekerjaan() {
         initComponents();
         setItemComboBox();
-         System.out.println("ComboBox: " + jumlahTugasComboBox); // Debug
     }
 
     /**

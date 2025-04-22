@@ -4,17 +4,26 @@
  */
 package view;
 
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author LENOVO
  */
 public class FormGaji extends javax.swing.JInternalFrame {
+    
+    private final DefaultTableModel gajiDefaultTableModel;
+    private final GajiController gajiController = new GajiController();
 
     /**
      * Creates new form FormGaji
      */
     public FormGaji() {
         initComponents();
+        gajiDefaultTableModel = (DefaultTableModel)gajiTable.getModel();
     }
 
     /**
@@ -26,26 +35,40 @@ public class FormGaji extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pekerjaanPopUpMenu = new javax.swing.JPopupMenu();
+        pekerjaanPopupMenu = new javax.swing.JPopupMenu();
         tambahMenuItem = new javax.swing.JMenuItem();
         hapusMenuItem = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         ktpLabel = new javax.swing.JLabel();
         ktpTextField = new javax.swing.JTextField();
         lihatButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        ruangLabel = new javax.swing.JLabel();
+        simpanButton = new javax.swing.JButton();
         tutupButton = new javax.swing.JButton();
         namaLabel = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        namaTextField = new javax.swing.JTextField();
+        ruangTextField = new javax.swing.JTextField();
         gajiPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        gajiTable = new javax.swing.JTable();
 
         tambahMenuItem.setText("jMenuItem1");
-        pekerjaanPopUpMenu.add(tambahMenuItem);
+        tambahMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahMenuItemActionPerformed(evt);
+            }
+        });
+        pekerjaanPopupMenu.add(tambahMenuItem);
 
         hapusMenuItem.setText("jMenuItem2");
-        pekerjaanPopUpMenu.add(hapusMenuItem);
+        hapusMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusMenuItemActionPerformed(evt);
+            }
+        });
+        pekerjaanPopupMenu.add(hapusMenuItem);
+
+        setTitle("Mengelola Gaji Karyawan");
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 255));
 
@@ -56,6 +79,11 @@ public class FormGaji extends javax.swing.JInternalFrame {
                 ktpTextFieldActionPerformed(evt);
             }
         });
+        ktpTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ktpTextFieldKeyPressed(evt);
+            }
+        });
 
         lihatButton.setText("Lihat");
         lihatButton.addActionListener(new java.awt.event.ActionListener() {
@@ -64,14 +92,12 @@ public class FormGaji extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Ruang");
+        ruangLabel.setText("Ruang");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton2.setText("Simpan");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        simpanButton.setText("Simpan");
+        simpanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                simpanButtonActionPerformed(evt);
             }
         });
 
@@ -84,9 +110,9 @@ public class FormGaji extends javax.swing.JInternalFrame {
 
         namaLabel.setText("Nama");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        namaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                namaTextFieldActionPerformed(evt);
             }
         });
 
@@ -98,21 +124,21 @@ public class FormGaji extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(namaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ktpLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ktpLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(namaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                     .addComponent(ktpTextField))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lihatButton)
                         .addGap(56, 56, 56)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ruangLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
+                        .addComponent(ruangTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(simpanButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tutupButton)))
@@ -123,15 +149,14 @@ public class FormGaji extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lihatButton)
-                            .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(8, 8, 8)
-                            .addComponent(ktpLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lihatButton)
+                        .addComponent(ruangLabel)
+                        .addComponent(simpanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ruangTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(ktpLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(ktpTextField)))
@@ -139,21 +164,61 @@ public class FormGaji extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tutupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(namaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(namaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(119, Short.MAX_VALUE))
         );
 
         gajiPanel.setBackground(new java.awt.Color(204, 204, 255));
 
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseReleased(evt);
+            }
+        });
+
+        gajiTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Kode", "Nama Pekerjaan", "Gaji Bersih", "Gaji Kotor", "Tunjangan"
+            }
+        ));
+        gajiTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                gajiTableMouseReleased(evt);
+            }
+        });
+        gajiTable.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                gajiTablePropertyChange(evt);
+            }
+        });
+        gajiTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                gajiTableKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(gajiTable);
+
         javax.swing.GroupLayout gajiPanelLayout = new javax.swing.GroupLayout(gajiPanel);
         gajiPanel.setLayout(gajiPanelLayout);
         gajiPanelLayout.setHorizontalGroup(
             gajiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 605, Short.MAX_VALUE)
+            .addGroup(gajiPanelLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         gajiPanelLayout.setVerticalGroup(
             gajiPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 338, Short.MAX_VALUE)
+            .addGroup(gajiPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,13 +240,70 @@ public class FormGaji extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setKtp(String ktp){
+    ktpTextField.setText(ktp);
+}
+
+public void setNama(String nama){
+    namaTextField.setText(nama);
+}
+
+public void setRuang(String ruang){
+    ruangTextField.setText(ruang);
+}
+
+public void setNamaPekerjaan(String nama){
+    gajiTable.setValueAt(nama, gajiTable.getSelectedRow(), 1);
+}
+
+public void hapusGaji(){
+    for (int i=2; i<=4; i++){
+        gajiTable.setValueAt("", gajiTable.getSelectedRow(), i);
+    }
+}
+
+public void setPekerjaanTbl(Object[] gajiPekerjaan){
+    int noRecord = -1;
+
+    if ((noRecord = gajiDefaultTableModel.getRowCount()-1) >= 0){
+        while (((gajiTable.getValueAt(noRecord, 0) == null) || gajiTable.getValueAt(noRecord, 0).equals("")) 
+                && (noRecord > 0)){
+            noRecord--;
+        }
+
+        if (!((gajiTable.getValueAt(noRecord, 0) == null) || gajiTable.getValueAt(noRecord, 0).equals(""))){
+            noRecord++;
+        }
+
+        if (noRecord < gajiDefaultTableModel.getRowCount()){
+            if ((gajiTable.getValueAt(noRecord, 0) == null) || gajiTable.getValueAt(noRecord, 0).equals("")){
+                gajiDefaultTableModel.removeRow(noRecord);
+            } else {
+                noRecord++;
+            }
+        }
+    }
+
+    gajiDefaultTableModel.insertRow(noRecord, gajiPekerjaan);
+}
+
+public void clearGajiTable(){
+    gajiDefaultTableModel.setRowCount(0);
+}
+
+private void klikKananTabel(java.awt.event.MouseEvent evt){
+    if (evt.isPopupTrigger()){
+        pekerjaanPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+    }
+}
+
     private void tutupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutupButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tutupButtonActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void namaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_namaTextFieldActionPerformed
 
     private void ktpTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ktpTextFieldActionPerformed
         // TODO add your handling code here:
@@ -189,26 +311,121 @@ public class FormGaji extends javax.swing.JInternalFrame {
 
     private void lihatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihatButtonActionPerformed
         // TODO add your handling code here:
+        gajiController.tampilkanFormLihatKaryawan();
     }//GEN-LAST:event_lihatButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        gajiController.simpan(ktpTextField,gajiTable);
+    }//GEN-LAST:event_simpanButtonActionPerformed
+
+    private void gajiTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gajiTableMouseReleased
+        // TODO add your handling code here:
+        Point p = evt.getPoint();
+        int rowNumber = gajiTable.rowAtPoint(p);
+        ListSelectionModel model = gajiTable.getSelectionModel();
+        model.setSelectionInterval(rowNumber, rowNumber);
+
+klikKananTabel(evt);
+
+    }//GEN-LAST:event_gajiTableMouseReleased
+
+    private void jScrollPane1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane1MouseReleased
+
+    private void gajiTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gajiTableKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (gajiTable.getSelectedRow() == (gajiTable.getRowCount() - 1)) {
+            if (gajiTable.getSelectedColumn() == 0) {
+                gajiDefaultTableModel.insertRow(gajiDefaultTableModel.getRowCount(), new Object[] {});
+            } else {
+                if (gajiTable.getSelectedColumn() == (gajiTable.getColumnCount() - 1)) {
+                    gajiDefaultTableModel.insertRow(gajiDefaultTableModel.getRowCount(), new Object[] {});
+                    gajiTable.changeSelection(gajiTable.getSelectedRow() + 1, 0, false, false);
+                } else {
+                    gajiTable.changeSelection(
+                        gajiTable.getSelectedRow(), 
+                        gajiTable.getSelectedColumn() + 1, 
+                        false, 
+                        false
+                    );
+                }
+            }
+        } else {
+            if (gajiTable.getSelectedColumn() == (gajiTable.getColumnCount() - 1)) {
+                gajiTable.changeSelection(gajiTable.getSelectedRow() + 1, 0, false, false);
+            } else {
+                gajiTable.setColumnSelectionInterval(
+                    gajiTable.getSelectedColumn() + 1, 
+                    gajiTable.getSelectedColumn() + 1
+                );
+                gajiTable.setRowSelectionInterval(
+                    gajiTable.getSelectedRow(), 
+                    gajiTable.getSelectedRow()
+                );
+            }
+        }
+    }
+    }//GEN-LAST:event_gajiTableKeyPressed
+
+    private void gajiTablePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_gajiTablePropertyChange
+        // TODO add your handling code here:
+        if (gajiTable.getSelectedRowCount() > 0) {
+        if (gajiTable.getSelectedColumn() == 0) {
+            String kodePekerjaan = "";
+            try {
+                kodePekerjaan = gajiTable.getValueAt(
+                    gajiTable.getSelectedRow(), 0
+                ).toString();
+            } catch (Exception ex) {
+                // Handle error jika perlu
+            }
+
+            if (!kodePekerjaan.equals("")) {
+                gajiController.cariPekerjaan(kodePekerjaan);
+            }
+        }
+    }
+    }//GEN-LAST:event_gajiTablePropertyChange
+
+    private void ktpTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ktpTextFieldKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            gajiController.cariKaryawan(ktpTextField);
+        }
+    }//GEN-LAST:event_ktpTextFieldKeyPressed
+
+    private void tambahMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahMenuItemActionPerformed
+        // TODO add your handling code here:
+        gajiController.tampilkanFormLihatPekerjaan();
+    }//GEN-LAST:event_tambahMenuItemActionPerformed
+
+    private void hapusMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusMenuItemActionPerformed
+        // TODO add your handling code here:
+        if (gajiTable.getSelectedRowCount()>0 ){
+            gajiDefaultTableModel.removeRow(
+            gajiTable.getSelectedRow());
+        }
+    }//GEN-LAST:event_hapusMenuItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gajiPanel;
+    private javax.swing.JTable gajiTable;
     private javax.swing.JMenuItem hapusMenuItem;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel ktpLabel;
     private javax.swing.JTextField ktpTextField;
     private javax.swing.JButton lihatButton;
     private javax.swing.JLabel namaLabel;
-    private javax.swing.JPopupMenu pekerjaanPopUpMenu;
+    private javax.swing.JTextField namaTextField;
+    private javax.swing.JPopupMenu pekerjaanPopupMenu;
+    private javax.swing.JLabel ruangLabel;
+    private javax.swing.JTextField ruangTextField;
+    private javax.swing.JButton simpanButton;
     private javax.swing.JMenuItem tambahMenuItem;
     private javax.swing.JButton tutupButton;
     // End of variables declaration//GEN-END:variables
