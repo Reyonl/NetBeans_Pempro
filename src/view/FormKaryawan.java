@@ -4,6 +4,9 @@
  */
 package view;
 
+import java.beans.PropertyVetoException;
+import static view.FormUtama.formKaryawan;
+
 /**
  *
  * @author LENOVO
@@ -57,6 +60,11 @@ public class FormKaryawan extends javax.swing.JInternalFrame {
         jLabel4.setText("Password");
 
         lihatButton.setText("Lihat");
+        lihatButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lihatButtonActionPerformed(evt);
+            }
+        });
 
         ruangComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -213,6 +221,13 @@ public class FormKaryawan extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_tutupButtonActionPerformed
+
+    private void lihatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihatButtonActionPerformed
+        // TODO add your handling code here:
+        FormLihatKaryawan lihatDialog =new FormLihatKaryawan(null,true);
+        lihatDialog.setLocationRelativeTo(this);
+        lihatDialog.setVisible(true);
+    }//GEN-LAST:event_lihatButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
